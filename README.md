@@ -1,9 +1,9 @@
 # Load lazy component in viewport
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/pezzotto/viewportlazy.svg?style=flat-square)](https://packagist.org/packages/pezzotto/viewportlazy)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/pezzotto/viewportlazy/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/pezzotto/viewportlazy/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/pezzotto/viewportlazy/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/pezzotto/viewportlazy/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/pezzotto/viewportlazy.svg?style=flat-square)](https://packagist.org/packages/pezzotto/viewportlazy)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/salvatorecervone/viewportlazy.svg?style=flat-square)](https://packagist.org/packages/salvatorecervone/viewportlazy)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/salvatorecervone/viewportlazy/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/salvatorecervone/viewportlazy/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/salvatorecervone/viewportlazy/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/salvatorecervone/viewportlazy/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/salvatorecervone/viewportlazy.svg?style=flat-square)](https://packagist.org/packages/salvatorecervone/viewportlazy)
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
@@ -20,7 +20,7 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require pezzotto/viewportlazy
+composer require salvatorecervone/viewportlazy
 ```
 
 You can publish and run the migrations with:
@@ -49,19 +49,6 @@ Optionally, you can publish the views using
 php artisan vendor:publish --tag="viewportlazy-views"
 ```
 
-## Usage
-
-```php
-$viewportlazy = new salvatorecervone\Viewportlazy();
-echo $viewportlazy->echoPhrase('Hello, salvatorecervone!');
-```
-
-## Testing
-
-```bash
-composer test
-```
-
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
@@ -76,7 +63,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Salvatore](https://github.com/Pezzotto)
+- [Salvatore](https://github.com/SalvatoreCervone)
 - [All Contributors](../../contributors)
 
 ## License
