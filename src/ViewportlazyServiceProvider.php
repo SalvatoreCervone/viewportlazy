@@ -17,9 +17,20 @@ class ViewportlazyServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('viewportlazy')
-            ->hasConfigFile()
+            // ->hasConfigFile()
+            ->hasRoute('web')
             ->hasViews()
-            ->hasMigration('create_viewportlazy_table')
-            ->hasCommand(ViewportlazyCommand::class);
+            ->hasMigration('create_server_loads_table')
+            ->hasInertiaComponents()
+            ->hasInstallCommand(function (InstallCommand $command) {
+                $command
+                    // ->publishConfigFile()
+                    // ->publishAssets()
+                    ->publishMigrations()
+                    ->copyAndRegisterServiceProviderInApp()
+                    ->askToStarRepoOnGitHub();
+            });
+            // ->hasCommand(ViewportlazyCommand::class)
+        ;
     }
 }
