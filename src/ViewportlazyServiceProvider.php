@@ -27,8 +27,8 @@ class ViewportlazyServiceProvider extends PackageServiceProvider
                     // ->publishConfigFile()
                     // ->publishAssets()
                     ->publishMigrations()
-                    ->copyAndRegisterServiceProviderInApp()
-                    ->askToStarRepoOnGitHub();
+                    ->copyAndRegisterServiceProviderInApp();
+                // ->askToStarRepoOnGitHub();
             });
             // ->hasCommand(ViewportlazyCommand::class)
         ;
