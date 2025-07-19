@@ -4,7 +4,7 @@ namespace salvatorecervone\Viewportlazy;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use salvatorecervone\Viewportlazy\Commands\ViewportlazyCommand;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
 class ViewportlazyServiceProvider extends PackageServiceProvider
 {
