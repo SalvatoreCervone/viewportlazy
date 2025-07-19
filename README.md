@@ -9,22 +9,33 @@ composer require salvatorecervone/viewportlazy
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="viewportlazy-migrations"
+php artisan vendor:publish --tag=migrations-viewportlazy
 php artisan migrate
 ```
 
-You can publish the config file with:
+You can publish Inertia Component with:
 
 ```bash
-php artisan vendor:publish --tag="viewportlazy-config"
+php artisan vendor:publish --tag=vue-viewportlazy
+```
+You can publish Controller with:
+
+```bash
+php artisan vendor:publish --tag=controller-viewportlazy
 ```
 
-This is the contents of the published config file:
+You can publish Models with:
 
-```php
-return [
-];
+```bash
+php artisan vendor:publish --tag=model-viewportlazy
 ```
+You can publish Route with:
+
+```bash
+php artisan vendor:publish --tag=route-viewportlazy
+```
+
+
 
 Optionally, you can publish the views using
 
