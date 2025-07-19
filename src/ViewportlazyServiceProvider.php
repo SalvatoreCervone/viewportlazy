@@ -33,13 +33,11 @@ class ViewportlazyServiceProvider extends PackageServiceProvider
         //     // ->hasCommand(ViewportlazyCommand::class)
         // ;
 
-        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
-        $this->publishesMigrations([__DIR__ . '/database/migrations' => database_path('/migrations')], 'migration-viewportlazy');
-        // $this->publishes([__DIR__ . '/resources/js' => resource_path('js/')], 'js-chatonetoone');
-        $this->publishes([__DIR__ . '/resources/js/Pages' => resource_path('js/Pages/viewportlazy/')], 'vue-viewportlazy');
+        $this->publishes([__DIR__ . '/../database/migrations' => database_path('/migrations')], 'migration-viewportlazy');
+        $this->publishes([__DIR__ . '/../routes/web.php' => app_path('../routes/')], 'route-viewportlazy');
+        $this->publishes([__DIR__ . '/../resources/js/Pages' => resource_path('js/Pages/viewportlazy/')], 'vue-viewportlazy');
         $this->publishes([__DIR__ . '/Http/Controllers' => app_path('Http/Controllers/')], 'controller-viewportlazy');
         $this->publishes([__DIR__ . '/Models' => app_path('Models/')], 'model-viewportlazy');
-        $this->publishes([__DIR__ . '/Models' => app_path('Controllers/')], 'controller-viewportlazy');
         // $this->publishes([__DIR__ . '/Events' => app_path('Events/')], 'event-chatonetoone');
         // $this->publishes([__DIR__ . '/config' => config_path()], 'config-chatonetoone');
     }
