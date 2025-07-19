@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace salvatorecervone\Viewportlazy;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
+use salvatorecervone\Viewportlazy\Commands\ViewportlazyCommand;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class ViewportlazyServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,10 +16,10 @@ class SkeletonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
+            ->name('viewportlazy')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_migration_table_name_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->hasMigration('create_viewportlazy_table')
+            ->hasCommand(ViewportlazyCommand::class);
     }
 }

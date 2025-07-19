@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace salvatorecervone\Viewportlazy\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class ViewportlazyCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'viewportlazy';
 
     public $description = 'My command';
 
