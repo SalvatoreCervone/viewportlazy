@@ -18,6 +18,43 @@ You can publish Inertia Component with:
 php artisan vendor:publish --tag=vue-viewportlazy
 ```
 
+## Use
+
+Simple
+After publish component you use with:
+
+```php
+<ViewPortLazy>
+</ViewPortLazy>
+```
+
+after insert component in your intern
+
+example:
+
+```php
+<ViewPortLazy>
+    <YourCustomComponent></YourCustomComponent>
+</ViewPortLazy>
+```
+
+or
+
+```php
+<ViewPortLazy>
+    <Card>
+        <template #header>My Card</template>
+        <template #content>
+            My content
+        </template>
+    </Card>
+</ViewPortLazy>
+```
+
+All your axios call or your call external or internal project execute only after component is in viewport
+
+
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
