@@ -1,0 +1,23 @@
+{
+    "name": "@salvatorecervone/viewportlazy",
+    "version": "1.0.0",
+    "description": "If you see , component load",
+    "main": "index.js",
+    "devDependencies": {
+        "vue": "^3.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/SalvatoreCervone/viewportlazy.git"
+    },
+    "keywords": [
+        "vieport",
+        "lazy"
+    ],
+    "author": "SalvatoreCervone",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/SalvatoreCervone/viewportlazy/issues"
+    },
+    "homepage": "https://github.com/SalvatoreCervone/viewportlazy#readme"
+}

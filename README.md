@@ -9,13 +9,7 @@ If you see in browser, component loading
 You can install the package via composer:
 
 ```bash
-composer require salvatorecervone/viewportlazy
-```
-
-You can publish Inertia Component with:
-
-```bash
-php artisan vendor:publish --tag=vue-viewportlazy
+npm i @salvatorecervone/viewportlazy
 ```
 
 ## Use
