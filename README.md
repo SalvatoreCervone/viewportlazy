@@ -1,3 +1,5 @@
+![alt text](https://github.com/SalvatoreCervone/viewportlazy/blob/main/images/human-pc.avif "Guardare il browser")
+
 ## About
 
 If you see in browser, component loading 
