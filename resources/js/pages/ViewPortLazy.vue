@@ -64,7 +64,7 @@ function isVisibleInViewport(element) {
                 }
             }
         }
-        console.log(rect.top, rect.bottom)
+
         let checkvisibility =
             rect.top >= 0 &&
             rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) - 80;

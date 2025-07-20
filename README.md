@@ -18,30 +18,6 @@ You can publish Inertia Component with:
 ```bash
 php artisan vendor:publish --tag=vue-viewportlazy
 ```
-You can publish Controller with:
-
-```bash
-php artisan vendor:publish --tag=controller-viewportlazy
-```
-
-You can publish Models with:
-
-```bash
-php artisan vendor:publish --tag=model-viewportlazy
-```
-You can publish Route with:
-
-```bash
-php artisan vendor:publish --tag=route-viewportlazy
-```
-
-
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="viewportlazy-views"
-```
 
 ## Changelog
 
