@@ -1,3 +1,5 @@
+/.github
+
 # Composer Related
 composer.lock
 /vendor
