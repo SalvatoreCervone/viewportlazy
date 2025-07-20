@@ -1,6 +1,6 @@
 {
     "name": "@salvatorecervone/viewportlazy",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "If you see , component load",
     "main": "src/index.js",
     "browser": {
