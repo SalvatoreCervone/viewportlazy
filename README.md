@@ -1,16 +1,13 @@
+## About
+
+If you see in browser, component loading 
+
 ## Installation
 
 You can install the package via composer:
 
 ```bash
 composer require salvatorecervone/viewportlazy
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag=migrations-viewportlazy
-php artisan migrate
 ```
 
 You can publish Inertia Component with:
