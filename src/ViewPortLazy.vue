@@ -7,15 +7,22 @@
 </template>
 <script setup>
 import { onMounted, useTemplateRef, ref } from "vue";
+const props = defineProps({
+    delayAllView: { type: Number, default: 2000 }, //Milliseconds
+    delaySingle: { type: Number, default: 0 }, //Milliseconds
+});
 const lazyview = useTemplateRef("lazyView");
 const visibility = ref(false);
 onMounted(() => {
+    let sumTime=Number(props.delayAllView) + Number(props.delaySingle)
     setTimeout(function () {
         isVisibleInViewport(lazyview.value);
-    }, 3000);
-    window.addEventListener("scroll", () => {
-        isVisibleInViewport(lazyview.value);
-    },
+    }, sumTime);
+    window.addEventListener(
+        "scroll",
+        () => {
+            isVisibleInViewport(lazyview.value);
+        },
         true
     );
 });
@@ -50,7 +57,9 @@ function isVisibleInViewport(element) {
             !element.isSameNode(elementFromStartingPoint)
         ) {
             const elementZIndex = elementStyle.zIndex;
-            const elementOverlappingZIndex = window.getComputedStyle(elementFromStartingPoint).zIndex;
+            const elementOverlappingZIndex = window.getComputedStyle(
+                elementFromStartingPoint
+            ).zIndex;
             if (Number(elementZIndex) < Number(elementOverlappingZIndex)) {
                 return false;
             }
@@ -67,13 +76,14 @@ function isVisibleInViewport(element) {
 
         let checkvisibility =
             rect.top >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) - 80;
+            rect.bottom <=
+                (window.innerHeight || document.documentElement.clientHeight) -
+                    80;
         // && rect.right <= (window.innerWidth || document.documentElement.clientWidth) // NON INTERESSA
 
         if (checkvisibility) {
             visibility.value = checkvisibility;
         }
-
     }
 }
 </script>
