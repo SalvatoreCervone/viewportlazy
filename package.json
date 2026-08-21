@@ -1,6 +1,6 @@
 {
     "name": "@salvatorecervone/viewportlazy",
-    "version": "1.0.5",
+    "version": "2.0.0",
     "description": "Vue 3 component to lazy load elements when entering viewport",
     "main": "src/index.js",
     "module": "src/index.js",
@@ -38,6 +38,13 @@
     "bugs": {
         "url": "https://github.com/SalvatoreCervone/viewportlazy/issues"
     },
-    "homepage": "https://github.com/SalvatoreCervone/viewportlazy#readme"
+    "homepage": "https://github.com/SalvatoreCervone/viewportlazy#readme",
+    "files": [
+        "src",
+        "README.md",
+        "LICENSE.md"
+    ],
+    "publishConfig": {
+        "access": "public"
+    }
 }
-
