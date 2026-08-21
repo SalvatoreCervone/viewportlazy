@@ -5,85 +5,115 @@
         </div>
     </div>
 </template>
+
 <script setup>
-import { onMounted, useTemplateRef, ref } from "vue";
+import { onMounted, onBeforeUnmount, ref } from "vue";
+
 const props = defineProps({
-    delayAllView: { type: Number, default: 2000 }, //Milliseconds
-    delaySingle: { type: Number, default: 0 }, //Milliseconds
+    delayAllView: { type: Number, default: 2000 }, // Milliseconds
+    delaySingle: { type: Number, default: 0 }, // Milliseconds
 });
-const lazyview = useTemplateRef("lazyView");
+
+const lazyView = ref(null);
 const visibility = ref(false);
-onMounted(() => {
-    let sumTime=Number(props.delayAllView) + Number(props.delaySingle)
-    setTimeout(function () {
-        isVisibleInViewport(lazyview.value);
-    }, sumTime);
-    window.addEventListener(
-        "scroll",
-        () => {
-            isVisibleInViewport(lazyview.value);
-        },
-        true
-    );
-});
+let observer = null;
+let timer = null;
 
-function isVisibleInViewport(element) {
-    // let element = elementObject.element
-    if (element) {
-        const elementStyle = window.getComputedStyle(element);
-        //Casi in cui non è visibile a nessuno
+function isElementHidden(element) {
+    const elementStyle = window.getComputedStyle(element);
+    if (
+        elementStyle.display === "none" ||
+        elementStyle.opacity === "0" ||
+        elementStyle.visibility === "hidden" ||
+        elementStyle.clipPath === "circle(0px at 50% 50%)" ||
+        elementStyle.transform === "scale(0)" ||
+        element.hasAttribute("hidden")
+    ) {
+        return true;
+    }
+
+    const rect = element.getBoundingClientRect();
+    if (rect.width === 0 && rect.height === 0) {
+        return false;
+    }
+
+    const elementFromPoint = document.elementFromPoint(rect.left, rect.top);
+    if (
+        elementFromPoint != null &&
+        !element.isSameNode(elementFromPoint) &&
+        !element.contains(elementFromPoint)
+    ) {
+        const elementZIndex = elementStyle.zIndex;
+        const overlappingZIndex = window.getComputedStyle(elementFromPoint).zIndex;
         if (
-            // elementStyle.height == '0px' || // discutibile
-            elementStyle.display == "none" ||
-            elementStyle.opacity == "0" ||
-            elementStyle.visibility == "hidden" ||
-            elementStyle.clipPath == "circle(0px at 50% 50%)" ||
-            elementStyle.transform == "scale(0)" ||
-            element.hasAttribute("hidden")
+            elementZIndex !== "" &&
+            overlappingZIndex !== "" &&
+            Number(elementZIndex) < Number(overlappingZIndex)
         ) {
-            return false;
+            return true;
         }
-        const rect = element.getBoundingClientRect();
-
-        //Overlapping strict check
-        const baseElementLeft = rect.left;
-        const baseElementTop = rect.top;
-        const elementFromStartingPoint = document.elementFromPoint(
-            baseElementLeft,
-            baseElementTop
-        );
-        if (
-            elementFromStartingPoint != null &&
-            !element.isSameNode(elementFromStartingPoint)
-        ) {
-            const elementZIndex = elementStyle.zIndex;
-            const elementOverlappingZIndex = window.getComputedStyle(
-                elementFromStartingPoint
-            ).zIndex;
-            if (Number(elementZIndex) < Number(elementOverlappingZIndex)) {
-                return false;
+        if (elementZIndex === "" && overlappingZIndex === "") {
+            if (
+                element.compareDocumentPosition(elementFromPoint) &
+                Node.DOCUMENT_POSITION_FOLLOWING
+            ) {
+                return true;
             }
-            if (elementZIndex === "" && elementOverlappingZIndex === "") {
-                /** Se 2 elementi sono sovrapposti con z-index si vedrà solo quello superiore **/
-                if (
-                    element.compareDocumentPosition(elementFromStartingPoint) &
-                    Node.DOCUMENT_POSITION_FOLLOWING
-                ) {
-                    return false;
-                }
-            }
-        }
-
-        let checkvisibility =
-            rect.top >= 0 &&
-            rect.bottom <=
-                (window.innerHeight || document.documentElement.clientHeight) -
-                    80;
-        // && rect.right <= (window.innerWidth || document.documentElement.clientWidth) // NON INTERESSA
-
-        if (checkvisibility) {
-            visibility.value = checkvisibility;
         }
     }
+
+    return false;
 }
+
+function checkVisibility() {
+    const element = lazyView.value;
+    if (!element || visibility.value) return;
+
+    if (!isElementHidden(element)) {
+        visibility.value = true;
+        cleanup();
+    }
+}
+
+function cleanup() {
+    if (timer) {
+        clearTimeout(timer);
+        timer = null;
+    }
+    if (observer) {
+        observer.disconnect();
+        observer = null;
+    }
+}
+
+onMounted(() => {
+    const sumTime = Number(props.delayAllView) + Number(props.delaySingle);
+
+    timer = setTimeout(() => {
+        const element = lazyView.value;
+        if (!element) return;
+
+        if ("IntersectionObserver" in window) {
+            observer = new IntersectionObserver(
+                (entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting) {
+                            checkVisibility();
+                        }
+                    }
+                },
+                {
+                    rootMargin: "0px 0px -80px 0px",
+                }
+            );
+            observer.observe(element);
+        } else {
+            checkVisibility();
+        }
+    }, sumTime);
+});
+
+onBeforeUnmount(() => {
+    cleanup();
+});
 </script>

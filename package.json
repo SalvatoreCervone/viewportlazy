@@ -1,37 +1,43 @@
 {
     "name": "@salvatorecervone/viewportlazy",
     "version": "1.0.5",
-    "description": "If you see , component load",
+    "description": "Vue 3 component to lazy load elements when entering viewport",
     "main": "src/index.js",
+    "module": "src/index.js",
     "browser": {
         "./sfc": "src/ViewPortLazy.vue"
     },
     "scripts": {
-        "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
-        "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/my-component.umd.js",
-        "build:es": "rollup --config build/rollup.config.js --format es --file dist/my-component.esm.js",
-        "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/my-component.min.js"
+        "build": "npm run build:umd && npm run build:es && npm run build:unpkg",
+        "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/viewportlazy.umd.js",
+        "build:es": "rollup --config build/rollup.config.js --format es --file dist/viewportlazy.esm.js",
+        "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/viewportlazy.min.js"
+    },
+    "peerDependencies": {
+        "vue": "^3.0.0"
     },
     "devDependencies": {
-        "rollup": "^1.17.0",
-        "@rollup/plugin-buble": "^0.21.3",
-        "@rollup/plugin-commonjs": "^11.1.0",
-        "rollup-plugin-vue": "^5.0.1",
-        "vue-template-compiler": "^2.6.10",
-        "vue": "^3.0"
+        "@rollup/plugin-commonjs": "^25.0.0",
+        "@vue/compiler-sfc": "^3.4.0",
+        "rollup": "^4.0.0",
+        "rollup-plugin-vue": "^6.0.0",
+        "vue": "^3.4.0"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/SalvatoreCervone/viewportlazy.git"
     },
     "keywords": [
-        "vieport",
-        "lazy"
+        "viewport",
+        "lazy",
+        "vue",
+        "vue3"
     ],
     "author": "SalvatoreCervone",
-    "license": "ISC",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/SalvatoreCervone/viewportlazy/issues"
     },
     "homepage": "https://github.com/SalvatoreCervone/viewportlazy#readme"
 }
+

@@ -2,52 +2,65 @@
 
 ## About
 
-If you see in browser, component loading 
+Vue 3 component to lazy load elements or components when they enter the viewport.
 
 ## Installation
-
-You can install the package via composer:
 
 ```bash
 npm i @salvatorecervone/viewportlazy
 ```
 
-## Use
+## Usage
 
-Simple
-After publish component you use with:
+### Global Registration
 
-```php
-<ViewPortLazy>
-</ViewPortLazy>
+```javascript
+import { createApp } from 'vue';
+import App from './App.vue';
+import ViewPortLazy from '@salvatorecervone/viewportlazy';
+
+const app = createApp(App);
+app.use(ViewPortLazy);
+app.mount('#app');
 ```
 
-after insert component in your intern
+### Local Component Usage
 
-example:
+```vue
+<template>
+    <ViewPortLazy>
+        <YourCustomComponent />
+    </ViewPortLazy>
+</template>
 
-```php
-<ViewPortLazy>
-    <YourCustomComponent></YourCustomComponent>
-</ViewPortLazy>
+<script setup>
+import { ViewPortLazy } from '@salvatorecervone/viewportlazy';
+</script>
 ```
 
-or
+### Example with Slots and Cards
 
-```php
-<ViewPortLazy>
-    <Card>
-        <template #header>My Card</template>
-        <template #content>
-            My content
-        </template>
-    </Card>
-</ViewPortLazy>
+```vue
+<template>
+    <ViewPortLazy :delay-all-view="500" :delay-single="0">
+        <Card>
+            <template #header>My Card</template>
+            <template #content>
+                My content
+            </template>
+        </Card>
+    </ViewPortLazy>
+</template>
 ```
 
-All your axios call or your call external or internal project execute only after component is in viewport
+All your API / axios calls or expensive child component rendering will execute only after the component enters the viewport.
 
+## Props
 
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `delayAllView` | `Number` | `2000` | Delay in milliseconds before starting visibility observation |
+| `delaySingle` | `Number` | `0` | Additional single-instance delay in milliseconds |
 
 ## Changelog
 
@@ -57,15 +70,11 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
 ## Credits
 
 - [Salvatore](https://github.com/SalvatoreCervone)
-- [All Contributors](../../contributors)
 
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
