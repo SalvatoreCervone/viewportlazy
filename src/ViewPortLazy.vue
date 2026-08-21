@@ -1,119 +1,72 @@
 <template>
-    <div ref="lazyView">
-        <div v-if="visibility">
-            <slot></slot>
-        </div>
-    </div>
+    <component :is="tag" ref="lazyView" :style="wrapperStyle">
+        <template v-if="visibility">
+            <slot :is-visible="visibility" />
+        </template>
+        <template v-else>
+            <slot name="placeholder" :is-visible="visibility" />
+        </template>
+    </component>
 </template>
 
 <script setup>
-import { onMounted, onBeforeUnmount, ref } from "vue";
+import { computed, ref } from 'vue';
+import { useViewportLazy } from './useViewportLazy.js';
 
 const props = defineProps({
-    delayAllView: { type: Number, default: 2000 }, // Milliseconds
-    delaySingle: { type: Number, default: 0 }, // Milliseconds
+    tag: {
+        type: String,
+        default: 'div',
+    },
+    delayAllView: {
+        type: Number,
+        default: 0,
+    },
+    delaySingle: {
+        type: Number,
+        default: 0,
+    },
+    rootMargin: {
+        type: String,
+        default: '0px',
+    },
+    threshold: {
+        type: [Number, Array],
+        default: 0,
+    },
+    once: {
+        type: Boolean,
+        default: true,
+    },
+    minHeight: {
+        type: [String, Number],
+        default: null,
+    },
 });
+
+const emit = defineEmits(['visible', 'hidden']);
 
 const lazyView = ref(null);
-const visibility = ref(false);
-let observer = null;
-let timer = null;
+const totalDelay = computed(() => Number(props.delayAllView || 0) + Number(props.delaySingle || 0));
 
-function isElementHidden(element) {
-    const elementStyle = window.getComputedStyle(element);
-    if (
-        elementStyle.display === "none" ||
-        elementStyle.opacity === "0" ||
-        elementStyle.visibility === "hidden" ||
-        elementStyle.clipPath === "circle(0px at 50% 50%)" ||
-        elementStyle.transform === "scale(0)" ||
-        element.hasAttribute("hidden")
-    ) {
-        return true;
-    }
-
-    const rect = element.getBoundingClientRect();
-    if (rect.width === 0 && rect.height === 0) {
-        return false;
-    }
-
-    const elementFromPoint = document.elementFromPoint(rect.left, rect.top);
-    if (
-        elementFromPoint != null &&
-        !element.isSameNode(elementFromPoint) &&
-        !element.contains(elementFromPoint)
-    ) {
-        const elementZIndex = elementStyle.zIndex;
-        const overlappingZIndex = window.getComputedStyle(elementFromPoint).zIndex;
-        if (
-            elementZIndex !== "" &&
-            overlappingZIndex !== "" &&
-            Number(elementZIndex) < Number(overlappingZIndex)
-        ) {
-            return true;
-        }
-        if (elementZIndex === "" && overlappingZIndex === "") {
-            if (
-                element.compareDocumentPosition(elementFromPoint) &
-                Node.DOCUMENT_POSITION_FOLLOWING
-            ) {
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-function checkVisibility() {
-    const element = lazyView.value;
-    if (!element || visibility.value) return;
-
-    if (!isElementHidden(element)) {
-        visibility.value = true;
-        cleanup();
-    }
-}
-
-function cleanup() {
-    if (timer) {
-        clearTimeout(timer);
-        timer = null;
-    }
-    if (observer) {
-        observer.disconnect();
-        observer = null;
-    }
-}
-
-onMounted(() => {
-    const sumTime = Number(props.delayAllView) + Number(props.delaySingle);
-
-    timer = setTimeout(() => {
-        const element = lazyView.value;
-        if (!element) return;
-
-        if ("IntersectionObserver" in window) {
-            observer = new IntersectionObserver(
-                (entries) => {
-                    for (const entry of entries) {
-                        if (entry.isIntersecting) {
-                            checkVisibility();
-                        }
-                    }
-                },
-                {
-                    rootMargin: "0px 0px -80px 0px",
-                }
-            );
-            observer.observe(element);
-        } else {
-            checkVisibility();
-        }
-    }, sumTime);
+const wrapperStyle = computed(() => {
+    if (!props.minHeight || visibility.value) return {};
+    const height = typeof props.minHeight === 'number' ? `${props.minHeight}px` : props.minHeight;
+    return { minHeight: height };
 });
 
-onBeforeUnmount(() => {
-    cleanup();
+const { isVisible: visibility, stop, start } = useViewportLazy(lazyView, {
+    rootMargin: props.rootMargin,
+    threshold: props.threshold,
+    delay: totalDelay.value,
+    once: props.once,
+    onVisible: (entry) => emit('visible', entry),
+    onHidden: (entry) => emit('hidden', entry),
+});
+
+defineExpose({
+    visibility,
+    stop,
+    start,
 });
 </script>
